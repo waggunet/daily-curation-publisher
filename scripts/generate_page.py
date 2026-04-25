@@ -3,7 +3,7 @@
 generate_page.py — HTML 웹페이지 생성
 raw_articles.json + insights_report.json → public/index.html
 """
-import json, sys, copy
+import json, sys, copy, base64
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
@@ -25,27 +25,29 @@ def main():
     # 템플릿 읽기
     html = TEMPLATE.read_text(encoding="utf-8")
 
-    # articles → JSON 삽입 (스크립트 태그로 렌더링)
-    articles_json = json.dumps(articles, ensure_ascii=False)
-    insights_json = json.dumps(insights, ensure_ascii=False)
+    # 데이터를 base64로 인코딩해서 안전하게 embed
+    articles_b64 = base64.b64encode(
+        json.dumps(articles, ensure_ascii=False).encode("utf-8")
+    ).decode("ascii")
+    insights_b64 = base64.b64encode(
+        json.dumps(insights, ensure_ascii=False).encode("utf-8")
+    ).decode("ascii")
 
-    # 데이터 인라인 임베딩 (data.js로 분리)
-    data_js = f"const ARTICLES = {articles_json};\nconst INSIGHTS = {insights_json};"
-    
-    # 데이터 태그 삽입
-    data_script = f'<script>\nconst ARTICLES = {articles_json};\nconst INSIGHTS = {insights_json};\n'
-    # template의 load() 함수에서 DATA_PATH 대신 ARTICLES 사용하도록 교체
-    data_script += '''
-async function load() {
-  const data = { articles: ARTICLES, insights: INSIGHTS };
-  render(data);
-}
-document.addEventListener('DOMContentLoaded', load);
-    </script>'''
+    # 데이터 로드 스크립트 (base64 디코딩 → JSON 파싱)
+    data_script = f'''<script id="__data__" type="application/json">
+{{"articles_b64":"{articles_b64}","insights_b64":"{insights_b64}"}}
+</script>
+<script>
+(function(){{
+  var d = JSON.parse(atob(document.getElementById("__data__").textContent));
+  window.ARTICLES = JSON.parse(atob(d.articles_b64));
+  window.INSIGHTS = JSON.parse(atob(d.insights_b64));
+  render({{ articles: window.ARTICLES, insights: window.INSIGHTS }});
+}})();
+</script>'''
 
-    # 기존 load 스크립트 제거 후 데이터 스크립트로 교체
+    # 기존 데이터 로드 스크립트 블록 제거 후 삽입
     import re
-    # 기존 데이터 로드 스크립트 블록 제거
     html = re.sub(
         r'<script>\s*// ===== 데이터 로드.*?</script>',
         data_script,
