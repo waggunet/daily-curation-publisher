@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-04-25T20:21:00.503753+09:00",
+  "fetched_at": "2026-04-25T20:26:31.904434+09:00",
   "cutoff_hours": 24,
-  "total_articles": 25,
+  "total_articles": 31,
   "articles": [
     {
       "title": "AI와의 대화, 법정에선 어디까지 '증거'로 인정될까",
@@ -175,6 +175,17 @@
       "lang": "ko"
     },
     {
+      "title": "소식통에 따르면 Lachy Groom은 인도 스타트업 Pronto를 $ 200M 가치로 후원하기 위해",
+      "link": "https://techcrunch.com/2026/04/24/lachy-groom-to-back-pronto-as-indias-house-help-startup-scales-fast-sources-say/",
+      "published": "2026-04-25T03:30:00+09:00",
+      "description": "This round, should it occur, would double the house-help startup's valuation in a matter of weeks.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Lachy Groom to back India startup Pronto at a $200M valuation, sources say",
+      "translated": true
+    },
+    {
       "title": "클로드 코드로 UX 라이팅 리소스 50% 절감한 후기 (Figma MCP 활용)",
       "link": "https://news.hada.io/topic?id=28869",
       "published": "2026-04-25T03:18:09+09:00",
@@ -227,6 +238,61 @@
       "source": "GeekNews",
       "category": "tech",
       "lang": "ko"
+    },
+    {
+      "title": "스티브 발머 (Steve Ballmer) 는 사기에 대한 유죄를 주장한 창업자를 폭파합니다: ‘나는 속았고 어리석은 느낌’",
+      "link": "https://techcrunch.com/2026/04/24/steve-ballmer-blasts-founder-he-backed-who-pleaded-guilty-to-fraud-i-was-duped-and-feel-silly/",
+      "published": "2026-04-24T23:32:11+09:00",
+      "description": "Steve Ballmer wrote a fiery letter in the sentencing of disgraced founder Joseph Sanberg documenting all the harm that's befalling him as an investor.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Steve Ballmer blasts founder he backed who pleaded guilty to fraud: ‘I was duped and feel silly’",
+      "translated": true
+    },
+    {
+      "title": "팔란티르는 미 국세청 (IRS) 의 금융 범죄 조사에 도움을 주고 있는 것으로 알려졌다.",
+      "link": "https://techcrunch.com/2026/04/24/palantir-is-reportedly-helping-the-irs-investigate-financial-crimes/",
+      "published": "2026-04-24T21:53:44+09:00",
+      "description": "The IRS has used Palantir's software since at least 2018, The Intercept reports.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Palantir is reportedly helping the IRS investigate financial crimes",
+      "translated": true
+    },
+    {
+      "title": "Cohere는 독일에 기반을 둔 스타트업과 합병하여 ‘대서양 횡단 AI 강국‘ 을 창출합니다.",
+      "link": "https://techcrunch.com/2026/04/24/cohere-acquires-merges-with-german-based-startup-to-create-a-transatlantic-ai-powerhouse/",
+      "published": "2026-04-24T21:35:30+09:00",
+      "description": "Cohere, the Canada-based AI company that makes AI tools for businesses in regulated industries, announced Friday it would merge with Aleph Alpha, a German company that also builds AI systems for businesses and governments.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Cohere acquires, merges with Germany-based startup to create a ‘transatlantic AI powerhouse’",
+      "translated": true
+    },
+    {
+      "title": "두 명의 대학생이 iMessage에서 AI 소셜 네트워크를 구축하기 위해 510만 달러 ($) 의 사전 종자를 모금합니다.",
+      "link": "https://techcrunch.com/2026/04/24/two-college-kids-raise-a-5-1-million-pre-seed-to-build-an-ai-social-network-in-imessage/",
+      "published": "2026-04-24T21:05:59+09:00",
+      "description": "Series, a social networking app that's grown popular on college campuses, announced a $5.1 million pre-seed round from some big names in tech.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Two college kids raise a $5.1 million pre-seed to build an AI social network in iMessage",
+      "translated": true
+    },
+    {
+      "title": "메타의 손실은 사고 기계의 이득입니다",
+      "link": "https://techcrunch.com/2026/04/24/metas-loss-is-thinking-machines-gain/",
+      "published": "2026-04-24T20:52:07+09:00",
+      "description": "Meta has been poaching talent from Thinking Machines Lab. But it's a two-way street.",
+      "source": "TechCrunch",
+      "category": "tech",
+      "lang": "en",
+      "title_original": "Meta’s loss is Thinking Machines’ gain",
+      "translated": true
     }
   ]
 }

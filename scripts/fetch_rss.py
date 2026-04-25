@@ -35,6 +35,20 @@ def parse_age(age_str: str) -> datetime:
         return now - timedelta(days=int(m.group(1)))
     return now
 
+def translate_title(text: str, src="en", dest="ko") -> str:
+    """MyMemory API로 제목 번역 (fallback: 원문 반환)"""
+    try:
+        import urllib.request, urllib.parse
+        url = f"https://api.mymemory.translated.net/get?q={urllib.parse.quote(text)}&langpair={src}|{dest}"
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            result = json.loads(resp.read())
+            translated = result["responseData"]["translatedText"]
+            if translated and translated != text:
+                return translated
+    except Exception:
+        pass
+    return text
+
 def parse_rss_entry(entry) -> dict:
     """RSS/Atom entry → 표준 dict"""
     title = entry.get("title", "")
@@ -118,6 +132,11 @@ def fetch_feed(source: dict) -> list:
             article["source"] = source["name"]
             article["category"] = source.get("category", "general")
             article["lang"] = source.get("lang", "ko")
+            # 번역 필요 시 제목 한글화
+            if source.get("translate", False):
+                article["title_original"] = article["title"]
+                article["title"] = translate_title(article["title"])
+                article["translated"] = True
             articles.append(article)
     
     print(f"  ✅ {source['name']}: {len(articles)}건 (24시간 내)")

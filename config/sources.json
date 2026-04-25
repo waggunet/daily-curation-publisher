@@ -1,6 +1,15 @@
 {
   "sources": [
     {
+      "name": "TechCrunch",
+      "url": "https://techcrunch.com/feed/",
+      "scrape_type": "rss",
+      "lang": "en",
+      "translate": true,
+      "category": "tech",
+      "max_articles": 8
+    },
+    {
       "name": "AI타임스",
       "url": "https://www.aitimes.com/rss/allArticle.xml",
       "scrape_type": "rss",
@@ -20,7 +29,6 @@
     }
   ],
   "settings": {
-    "filter_hours": 24,
-    "translate_threshold": 5
+    "filter_hours": 24
   }
 }
