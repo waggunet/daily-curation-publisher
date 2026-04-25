@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
-generate_page.py — HTML 웹페이지 생성
-raw_articles.json + insights_report.json → public/index.html
+generate_page.py — HTML 웹페이지 생성 (data embed fix)
 """
-import json, sys, copy, base64
+import json, re
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
@@ -14,40 +13,36 @@ ARTICLES   = SKILL_DIR / "data" / "raw_articles.json"
 INSIGHTS   = SKILL_DIR / "data" / "insights_report.json"
 OUTPUT     = SKILL_DIR / "public" / "index.html"
 
-def load_json(path):
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
+def js_string(s):
+    """Python string → safe JS string literal (handles any encoding)"""
+    # Escape for JS string — use JSON-safe encoding
+    s = json.dumps(s, ensure_ascii=False)
+    return s  # json.dumps already produces valid JS string
 
 def main():
-    articles = load_json(ARTICLES).get("articles", [])
-    insights = load_json(INSIGHTS)
+    articles = json.load(open(ARTICLES))["articles"]
+    insights = json.load(open(INSIGHTS))
 
-    # 템플릿 읽기
     html = TEMPLATE.read_text(encoding="utf-8")
 
-    # 데이터를 base64로 인코딩해서 안전하게 embed
-    articles_b64 = base64.b64encode(
-        json.dumps(articles, ensure_ascii=False).encode("utf-8")
-    ).decode("ascii")
-    insights_b64 = base64.b64encode(
-        json.dumps(insights, ensure_ascii=False).encode("utf-8")
-    ).decode("ascii")
+    # articles → JS array literal
+    article_js_parts = []
+    for a in articles:
+        article_js_parts.append(
+            f'{{source:{js_string(a.get("source",""))},'
+            f'title:{js_string(a.get("title",""))},'
+            f'description:{js_string(a.get("description","")[:300])},'
+            f'link:{js_string(a.get("link",""))}}}'
+        )
+    articles_js = "[" + ",".join(article_js_parts) + "]"
 
-    # 데이터 로드 스크립트 (base64 디코딩 → JSON 파싱)
-    data_script = f'''<script id="__data__" type="application/json">
-{{"articles_b64":"{articles_b64}","insights_b64":"{insights_b64}"}}
-</script>
-<script>
-(function(){{
-  var d = JSON.parse(atob(document.getElementById("__data__").textContent));
-  window.ARTICLES = JSON.parse(atob(d.articles_b64));
-  window.INSIGHTS = JSON.parse(atob(d.insights_b64));
-  render({{ articles: window.ARTICLES, insights: window.INSIGHTS }});
-}})();
-</script>'''
+    # insights → JS object literal
+    insights_js = json.dumps(insights, ensure_ascii=False)
 
-    # 기존 데이터 로드 스크립트 블록 제거 후 삽입
-    import re
+    # Embedded data script
+    data_script = f'<script>\nwindow.ARTICLES={articles_js};\nwindow.INSIGHTS={insights_js};\n</script>'
+
+    # Replace template data loader
     html = re.sub(
         r'<script>\s*// ===== 데이터 로드.*?</script>',
         data_script,
@@ -55,20 +50,21 @@ def main():
         flags=re.DOTALL
     )
 
-    # 날짜 치환
+    # Replace load() call
+    html = html.replace(
+        'document.addEventListener("DOMContentLoaded", load);',
+        'document.addEventListener("DOMContentLoaded", function(){ render({ articles:window.ARTICLES, insights:window.INSIGHTS }); });'
+    )
+
     now_kst = datetime.now(KST)
     html = html.replace("{{date}}", now_kst.strftime("%Y-%m-%d"))
     html = html.replace("{{generated_at}}", now_kst.strftime("%Y-%m-%d %H:%M KST"))
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(html, encoding="utf-8")
-    
-    print(f"✅ HTML 생성 완료: {OUTPUT}")
-    print(f"   - 기사 수: {len(articles)}건")
-    trends_count = len(insights.get("trends", []))
-    print(f"   - 트렌드: {trends_count}건")
-    actions_count = len(insights.get("action_items", []))
-    print(f"   - 액션아이템: {actions_count}건")
+
+    print(f"✅ HTML 생성 완료 ({OUTPUT.stat().st_size} bytes)")
+    print(f"   기사: {len(articles)}건, 트렌드: {len(insights.get('trends',[]))}건")
 
 if __name__ == "__main__":
     main()
