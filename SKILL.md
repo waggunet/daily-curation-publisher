@@ -84,6 +84,9 @@ cron (매일 07:00)
 - **카드형**: border-radius 12px, 카드 간격 1rem
 - **accent**: Hermes Orange (#FF6B00)
 - **레이아웃**: Header → 요약 → 트렌드 → 인사이트 → 액션아이템 → 원문기사
+- **렌더링**: 모든 섹션 HTML 내에 직접 렌더링 (JS fetch 없음)
+- **파일명**: `{yyyymmdd}.html` 형태 (예: `20260425.html`)
+- **기사 링크**: 모든 원문 카드에 실제 URL 직접 링크 (target=_blank)
 
 ## 🔧 수동 실행
 
