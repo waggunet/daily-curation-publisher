@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Curation — {{date}}</title>
+  <style>
+    /* ===== CSS Variables — Hermes Dark Theme ===== */
+    :root {
+      --bg:        #0D0D0F;
+      --card-bg:   #18181C;
+      --border:    #2A2A30;
+      --text:      #E8E8EC;
+      --muted:     #7A7A86;
+      --accent:    #FF6B00;
+      --accent-2:  #FF8C3A;
+      --danger:    #FF4757;
+      --success:   #2ED573;
+      --warning:   #FFD32A;
+      --font:      'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    /* ===== Layout ===== */
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* ===== Header ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .header .brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .header .date {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== Section ===== */
+    .section { margin-bottom: 3rem; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-header .icon {
+      font-size: 1.2rem;
+    }
+    .section-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .section-header h2::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ===== Summary Banner ===== */
+    .summary-banner {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ===== Trend Cards ===== */
+    .trend-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .trend-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .trend-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent);
+    }
+    .trend-card.high::before { background: var(--accent); }
+    .trend-card.medium::before { background: var(--warning); }
+    .trend-card.low::before { background: var(--muted); }
+
+    .trend-card .trend-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .trend-card .trend-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .trend-card .trend-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .trend-card .trend-source {
+      font-size: 0.75rem;
+      color: var(--accent-2);
+    }
+    .impact-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .impact-high  { background: rgba(255,107,0,0.15);  color: var(--accent);  }
+    .impact-medium{ background: rgba(255,211,42,0.15);  color: var(--warning); }
+    .impact-low   { background: rgba(122,122,134,0.15);  color: var(--muted);  }
+
+    /* ===== Insight Cards ===== */
+    .insight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .insight-card .insight-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .insight-card .insight-content {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .insight-card .trend-ref {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: rgba(255,107,0,0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ===== Action Items ===== */
+    .action-list { display: grid; gap: 0.75rem; }
+    .action-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .action-item .priority-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .action-item.high .priority-dot { background: var(--accent); }
+    .action-item.medium .priority-dot { background: var(--warning); }
+    .action-item.low .priority-dot { background: var(--muted); }
+
+    .action-item .action-body { flex: 1; }
+    .action-item .action-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .action-item .action-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .action-item .action-meta {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .effort-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: rgba(255,107,0,0.12);
+      color: var(--accent-2);
+    }
+    .priority-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
+    .priority-label.high   { background: rgba(255,71,87,0.12); color: var(--danger); }
+    .priority-label.medium  { background: rgba(255,211,42,0.12); color: var(--warning); }
+    .priority-label.low     { background: rgba(122,122,134,0.12); color: var(--muted); }
+
+    /* ===== Business Impact ===== */
+    .biz-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) { .biz-grid { grid-template-columns: 1fr; } }
+
+    .biz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .biz-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .biz-card.opportunities h3 { color: var(--success); }
+    .biz-card.threats h3 { color: var(--danger); }
+    .biz-card.recommendations h3 { color: var(--accent); }
+
+    .biz-list { list-style: none; }
+    .biz-list li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .biz-list li:last-child { border-bottom: none; }
+    .biz-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; }
+
+    /* ===== Source Articles ===== */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .article-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: block;
+    }
+    .article-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .article-card .source-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .article-card .article-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .article-card .article-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ===== Header ===== -->
+    <header class="header">
+      <div class="brand">⚡ Hermes Daily Curation</div>
+      <h1 id="page-title">오늘의 기술 트렌스 리포트</h1>
+      <div class="date" id="page-date"></div>
+    </header>
+
+    <!-- ===== Summary ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">📋</span>
+        <h2>오늘의 요약</h2>
+      </div>
+      <div class="summary-banner" id="summary"></div>
+    </div>
+
+    <!-- ===== Trends ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">🔥</span>
+        <h2>주요 트렌드</h2>
+      </div>
+      <div class="trend-grid" id="trends"></div>
+    </div>
+
+    <!-- ===== Insights ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">💡</span>
+        <h2>인사이트</h2>
+      </div>
+      <div id="insights"></div>
+    </div>
+
+    <!-- ===== Action Items ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">🎯</span>
+        <h2>액션아이템</h2>
+      </div>
+      <div class="action-list" id="actions"></div>
+    </div>
+
+    <!-- ===== Business Impact ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">💼</span>
+        <h2>비즈니스 영향</h2>
+      </div>
+      <div class="biz-grid" id="biz-grid"></div>
+    </div>
+
+    <!-- ===== Source Articles ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">📰</span>
+        <h2>원문 기사</h2>
+      </div>
+      <div class="article-grid" id="articles"></div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      Generated by <a href="#">Hermes Daily Curation</a> · {{generated_at}}
+    </footer>
+
+  </div>
+
+  <script>
+    // ===== 데이터 로드 =====
+    const DATA_PATH = '../data/insights_report.json';
+
+    async function load() {
+      try {
+        const res = await fetch(DATA_PATH);
+        const data = await res.json();
+        render(data);
+      } catch (e) {
+        document.body.innerHTML += '<p style="color:#ff4757;text-align:center">데이터 로드 실패: ' + e.message + '</p>';
+      }
+    }
+
+    function render(data) {
+      // 날짜
+      document.getElementById('page-title').textContent = '오늘의 기술 트렌스 리포트';
+      const d = new Date();
+      document.getElementById('page-date').textContent = d.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+      document.querySelector('.footer').innerHTML =
+        'Generated by <strong>Hermes Daily Curation</strong> · ' + new Date(data.generated_at || d).toLocaleString('ko-KR');
+
+      // Summary
+      document.getElementById('summary').textContent = data.summary || '';
+
+      // Trends
+      const trendsEl = document.getElementById('trends');
+      (data.trends || []).forEach(t => {
+        const impact = t.impact || 'medium';
+        trendsEl.innerHTML += `
+          <div class="trend-card ${impact}">
+            <div class="trend-title">${escHtml(t.title)}</div>
+            <div class="trend-desc">${escHtml(t.description)}</div>
+            <div class="trend-meta">
+              <span class="impact-badge impact-${impact}">${impact}</span>
+              ${(t.sources || []).map(s => `<span class="trend-source">• ${escHtml(s)}</span>`).join('')}
+            </div>
+          </div>`;
+      });
+
+      // Insights
+      const insightsEl = document.getElementById('insights');
+      (data.insights || []).forEach(i => {
+        insightsEl.innerHTML += `
+          <div class="insight-card">
+            <div class="insight-title">💡 ${escHtml(i.title)}</div>
+            <div class="insight-content">${escHtml(i.content)}</div>
+            ${i.trend_ref ? `<span class="trend-ref"># ${escHtml(i.trend_ref)}</span>` : ''}
+          </div>`;
+      });
+
+      // Action Items
+      const actionsEl = document.getElementById('actions');
+      (data.action_items || []).forEach(a => {
+        const priority = a.priority || 'medium';
+        actionsEl.innerHTML += `
+          <div class="action-item ${priority}">
+            <div class="priority-dot"></div>
+            <div class="action-body">
+              <div class="action-title">${escHtml(a.title)}</div>
+              <div class="action-desc">${escHtml(a.description)}</div>
+              <div class="action-meta">
+                <span class="priority-label ${priority}">${priority}</span>
+                <span class="effort-badge">⏱ ${escHtml(a.effort || 'unknown')}</span>
+                ${a.trend_ref ? `<span class="trend-ref"># ${escHtml(a.trend_ref)}</span>` : ''}
+              </div>
+            </div>
+          </div>`;
+      });
+
+      // Business Impact
+      const bizEl = document.getElementById('biz-grid');
+      const bi = data.business_impact || {};
+      if (bi.opportunities) {
+        bizEl.innerHTML += `
+          <div class="biz-card opportunities">
+            <h3>🟢 기회</h3>
+            <ul class="biz-list">${bi.opportunities.map(o => `<li>${escHtml(o)}</li>`).join('')}</ul>
+          </div>`;
+      }
+      if (bi.threats) {
+        bizEl.innerHTML += `
+          <div class="biz-card threats">
+            <h3>🔴 위협</h3>
+            <ul class="biz-list">${bi.threats.map(o => `<li>${escHtml(o)}</li>`).join('')}</ul>
+          </div>`;
+      }
+      if (bi.recommendations) {
+        bizEl.innerHTML += `
+          <div class="biz-card recommendations" style="grid-column:1/-1">
+            <h3>🟠 권고사항</h3>
+            <ul class="biz-list">${bi.recommendations.map(o => `<li>${escHtml(o)}</li>`).join('')}</ul>
+          </div>`;
+      }
+    }
+
+    function escHtml(s) {
+      if (!s) return '';
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    load();
+  </script>
+</body>
+</html>

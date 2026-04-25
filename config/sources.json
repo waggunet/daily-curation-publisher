@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "name": "AI타임스",
+      "url": "https://www.aitimes.com/rss/allArticle.xml",
+      "scrape_type": "rss",
+      "lang": "ko",
+      "translate": false,
+      "category": "tech",
+      "max_articles": 10
+    },
+    {
+      "name": "GeekNews",
+      "url": "http://feeds.feedburner.com/geeknews-feed",
+      "scrape_type": "atom",
+      "lang": "ko",
+      "translate": false,
+      "category": "tech",
+      "max_articles": 15
+    }
+  ],
+  "settings": {
+    "filter_hours": 24,
+    "translate_threshold": 5
+  }
+}
