@@ -1,8 +1,35 @@
 {
-  "fetched_at": "2026-04-25T20:26:31.904434+09:00",
+  "fetched_at": "2026-04-25T21:24:15.319210+09:00",
   "cutoff_hours": 24,
-  "total_articles": 31,
+  "total_articles": 29,
   "articles": [
+    {
+      "title": "미국 메인주, 데이터센터 건설 중단 무산…일자리 위해 주지사 거부권 행사",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=209745",
+      "published": "2026-04-25T20:59:47+09:00",
+      "description": "미국 메인주의 데이터센터 금지 법안이 주지사의 서명 거부로 무산됐다. 이로써 미국의 주 중에서 데이터센터 건설을 금지한 곳은 아직 등장하지 않았다.24일(현지시간) 로이터에 따르면, 민주당 소속인 재닛 밀스 메인 주지사는 대규모 신규 데이터센터 건설을 일시적으로 중단하는 법안에 거부권을 행사했다. 이 법안은 민주당 소속 멜라니 삭스 주 하원의원이 발의한 것으로, 지난 14일 일부 공화당 의원들의 지지까지 얻어 의회에서 통과됐다. 2027년 11월까지 20메가와트(MW) 이상의 데이터센터 건설 신규 허가를 일시 중지하는 것이 목표로,",
+      "source": "AI타임스",
+      "category": "tech",
+      "lang": "ko"
+    },
+    {
+      "title": "여수 수산 단체들, 세계섬박람회 입장권 구매 '행렬'",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=209707",
+      "published": "2026-04-25T20:50:00+09:00",
+      "description": "여수 수산 단체들이 2026여수세계섬박람회 입장권 구매에 잇따라 동참하며 지역 내 박람회 분위기가 확산되고 있다.여수는 섬박람회의 성공 개최를 기원하는 수산 단체들의 입장권 구매 참여가 이어지고 있다고 24일 밝혔다.여수에 따르면 지난 13일 전남여수낚시어선협회가 입장권 400매를 구매한 데 이어, 21일에는 여수연안통합어업인협회가 입장권 220매를 구매했다. 이번 참여는 지역 수산업계가 자발적으로 박람회 성공 개최에 힘을 보탠 사례로 평가된다. 수협중앙회를 비롯한 여수 지역 지구별·업종별 수협과 수산 단체의 입장권 구매액은 총 2",
+      "source": "AI타임스",
+      "category": "tech",
+      "lang": "ko"
+    },
+    {
+      "title": "엔비디아, 시총 5조달러 탈환...'딥시크-V4' 출시에도 상승",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=209744",
+      "published": "2026-04-25T20:02:31+09:00",
+      "description": "엔비디아 주가가 24일(현지시간) 지난해 10월 이후 처음으로 다시 시가총액 5조달러(약 7387조5000억원)를 돌파했다. 이는 투자자들이 다음 주 빅테크의 실적 발표를 앞두고 AI 칩 관련 투자에 몰려들었기 때문이다.주가는 4.3% 상승해 208.27달러로 마감했다. 엔비디아 주가는 AI 서비스 및 모델 개발에 대한 수요 급증에 힘입어 2022년 말 이후 14배 이상 상승했다. 엔비디아의 GPU는 마이크로소프트와 아마존, 구글 등 하이퍼스케일러는 물론, 이제는 메타와 오픈AI, 앤트로픽 등 모델 개발 업체의 자체 데이터센터 구축",
+      "source": "AI타임스",
+      "category": "tech",
+      "lang": "ko"
+    },
     {
       "title": "AI와의 대화, 법정에선 어디까지 '증거'로 인정될까",
       "link": "https://www.aitimes.com/news/articleView.html?idxno=209505",
@@ -62,33 +89,6 @@
       "link": "https://www.aitimes.com/news/articleView.html?idxno=209741",
       "published": "2026-04-25T16:44:00+09:00",
       "description": "xAI와 중국 샤오미가 각각 에이전트 환경에 특화된 차세대 음성 AI 모델을 공개했다. xAI는 23일(현지시간) 새로운 음성 모델 ‘그록 보이스 싱크 패스트 1.0(Grok Voice Think Fast 1.0)’을 공개하며 API 형태로 제공을 시작했다.이 모델은 고객 지원, 전화 영업, 예약 관리 등 복잡하고 다단계 업무를 음성 기반으로 처리하는 데 최적화된 것이 특징이다.실시간 추론 능력을 유지하면서도 응답 지연을 최소화해 자연스러운 대화 경험을 구현하는 데 초점을 맞췄다. 저지연 통신 환경을 위해 스타링크(Starlink)",
-      "source": "AI타임스",
-      "category": "tech",
-      "lang": "ko"
-    },
-    {
-      "title": "목포, ‘찾아가는 재택의료’ 본격 가동… 의료 사각지대 해소",
-      "link": "https://www.aitimes.com/news/articleView.html?idxno=209712",
-      "published": "2026-04-25T15:43:00+09:00",
-      "description": "목포시가 거동이 불편한 장기요양 수급자를 대상으로 집에서 의료서비스를 받을 수 있는 재택의료체계를 본격 운영하고 있다고 24일 밝혔다.목포는 의료기관 방문이 어려운 노인을 위해 장기요양 재택의료센터 시범사업을 가동하고 있다. 이 사업은 병원 중심 진료에서 벗어나 의료진이 직접 가정을 찾아가는 방식으로 의료 공백을 줄이는 데 초점을 뒀다.목포는 목포시의료원과 박관우한의원과 업무협약을 체결해 양방과 한방을 아우르는 협력체계를 구축했다.전문 인력 교육을 마친 뒤 지난 3월27일부터 장기요양 재택의료센터 운영을 시작했다. 서비스는 의사,",
-      "source": "AI타임스",
-      "category": "tech",
-      "lang": "ko"
-    },
-    {
-      "title": "구글, 앤트로픽에 최대 59조 추가 투자 예정...5GW 컴퓨팅 자원 제공",
-      "link": "https://www.aitimes.com/news/articleView.html?idxno=209736",
-      "published": "2026-04-25T13:21:42+09:00",
-      "description": "구글이 앤트로픽에 최대 400억달러(약 59조원)를 투자하기로 하며, 협력과 경쟁이 동시에 얽힌 양사의 관계가 한층 강화되고 있다.구글은 25일(현지시간) 앤트로픽에 우선 100억달러(약 15조원)를 현금으로 투자하고, 앞으로 성능 목표 달성 여부에 따라 추가로 300억달러(약 44조원)를 집행하는 조건부 계약을 체결했다고 밝혔다.기업 가치는 약 3500억~3800억달러(약 516조~561조원) 수준으로 알려졌다. 또 이번 자금은 앤트로픽의 핵심 과제인 ‘컴퓨팅 인프라 확장’에 집중 투입될 전망이다.AI 경쟁이 심화하면서 모델 성능",
-      "source": "AI타임스",
-      "category": "tech",
-      "lang": "ko"
-    },
-    {
-      "title": "[내면 지도 그리기] 13 Inner Mapping: 나를 찾는 지도",
-      "link": "https://www.aitimes.com/news/articleView.html?idxno=209742",
-      "published": "2026-04-25T12:58:06+09:00",
-      "description": "내면지도_지름길을 알아보는 방법지름길은 대개 가장 짧은 거리로 정의됩니다.그러나 삶에서 그 개념은 조금 다른 방식으로 드러납니다.어떤 길은 빨라도 오래 가지 못하고, 어떤 길은 느려도 결국 목적지에 닿습니다.지름길이란 더 빨리 가는 길이 아니라, 결국 내가 끝까지 갈 수 있는 길,나에게 맞는 길을 알아보는 이름일지도 모릅니다.지름길은 변합니다. 어제까지 가장 빠르던 길이, 오늘은 멀리 돌아가는 길이 되기도 합니다. 골목 끝에 새로 생긴 카페로 갑자기 사람들이 몰리고, 갑자스러운 공사로 길이 막히고, 비 오는 날이면 평소엔 아무렇지",
       "source": "AI타임스",
       "category": "tech",
       "lang": "ko"
@@ -270,28 +270,6 @@
       "category": "tech",
       "lang": "en",
       "title_original": "Cohere acquires, merges with Germany-based startup to create a ‘transatlantic AI powerhouse’",
-      "translated": true
-    },
-    {
-      "title": "두 명의 대학생이 iMessage에서 AI 소셜 네트워크를 구축하기 위해 510만 달러 ($) 의 사전 종자를 모금합니다.",
-      "link": "https://techcrunch.com/2026/04/24/two-college-kids-raise-a-5-1-million-pre-seed-to-build-an-ai-social-network-in-imessage/",
-      "published": "2026-04-24T21:05:59+09:00",
-      "description": "Series, a social networking app that's grown popular on college campuses, announced a $5.1 million pre-seed round from some big names in tech.",
-      "source": "TechCrunch",
-      "category": "tech",
-      "lang": "en",
-      "title_original": "Two college kids raise a $5.1 million pre-seed to build an AI social network in iMessage",
-      "translated": true
-    },
-    {
-      "title": "메타의 손실은 사고 기계의 이득입니다",
-      "link": "https://techcrunch.com/2026/04/24/metas-loss-is-thinking-machines-gain/",
-      "published": "2026-04-24T20:52:07+09:00",
-      "description": "Meta has been poaching talent from Thinking Machines Lab. But it's a two-way street.",
-      "source": "TechCrunch",
-      "category": "tech",
-      "lang": "en",
-      "title_original": "Meta’s loss is Thinking Machines’ gain",
       "translated": true
     }
   ]
