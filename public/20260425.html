@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Curation — 2026-04-25</title>
+  <style>
+    /* ===== CSS Variables — Hermes Dark Theme ===== */
+    :root {
+      --bg:        #0D0D0F;
+      --card-bg:   #18181C;
+      --border:    #2A2A30;
+      --text:      #E8E8EC;
+      --muted:     #7A7A86;
+      --accent:    #FF6B00;
+      --accent-2:  #FF8C3A;
+      --danger:    #FF4757;
+      --success:   #2ED573;
+      --warning:   #FFD32A;
+      --font:      'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    /* ===== Layout ===== */
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* ===== Header ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .header .brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .header .date {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== Section ===== */
+    .section { margin-bottom: 3rem; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-header .icon {
+      font-size: 1.2rem;
+    }
+    .section-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .section-header h2::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ===== Summary Banner ===== */
+    .summary-banner {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ===== Trend Cards ===== */
+    .trend-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .trend-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .trend-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent);
+    }
+    .trend-card.high::before { background: var(--accent); }
+    .trend-card.medium::before { background: var(--warning); }
+    .trend-card.low::before { background: var(--muted); }
+
+    .trend-card .trend-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .trend-card .trend-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .trend-card .trend-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .trend-card .trend-source {
+      font-size: 0.75rem;
+      color: var(--accent-2);
+    }
+    .impact-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .impact-high  { background: rgba(255,107,0,0.15);  color: var(--accent);  }
+    .impact-medium{ background: rgba(255,211,42,0.15);  color: var(--warning); }
+    .impact-low   { background: rgba(122,122,134,0.15);  color: var(--muted);  }
+
+    /* ===== Insight Cards ===== */
+    .insight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .insight-card .insight-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .insight-card .insight-content {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .insight-card .trend-ref {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: rgba(255,107,0,0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ===== Action Items ===== */
+    .action-list { display: grid; gap: 0.75rem; }
+    .action-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .action-item .priority-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .action-item.high .priority-dot { background: var(--accent); }
+    .action-item.medium .priority-dot { background: var(--warning); }
+    .action-item.low .priority-dot { background: var(--muted); }
+
+    .action-item .action-body { flex: 1; }
+    .action-item .action-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .action-item .action-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .action-item .action-meta {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .effort-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: rgba(255,107,0,0.12);
+      color: var(--accent-2);
+    }
+    .priority-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
+    .priority-label.high   { background: rgba(255,71,87,0.12); color: var(--danger); }
+    .priority-label.medium  { background: rgba(255,211,42,0.12); color: var(--warning); }
+    .priority-label.low     { background: rgba(122,122,134,0.12); color: var(--muted); }
+
+    /* ===== Business Impact ===== */
+    .biz-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) { .biz-grid { grid-template-columns: 1fr; } }
+
+    .biz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .biz-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .biz-card.opportunities h3 { color: var(--success); }
+    .biz-card.threats h3 { color: var(--danger); }
+    .biz-card.recommendations h3 { color: var(--accent); }
+
+    .biz-list { list-style: none; }
+    .biz-list li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .biz-list li:last-child { border-bottom: none; }
+    .biz-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; }
+
+    /* ===== Source Articles ===== */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .article-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: block;
+    }
+    .article-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .article-card .source-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .article-card .article-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .article-card .article-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ===== Header ===== -->
+    <header class="header">
+      <div class="brand">⚡ Hermes Daily Curation</div>
+      <h1 id="page-title">오늘의 기술 트렌스 리포트</h1>
+      <div class="date" id="page-date"></div>
+    </header>
+
+    <!-- ===== Summary ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">📋</span>
+        <h2>오늘의 요약</h2>
+      </div>
+      <div class="summary-banner" id="summary"></div>
+    </div>
+
+    <!-- ===== Trends ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">🔥</span>
+        <h2>주요 트렌드</h2>
+      </div>
+      <div class="trend-grid" id="trends"></div>
+    </div>
+
+    <!-- ===== Insights ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">💡</span>
+        <h2>인사이트</h2>
+      </div>
+      <div id="insights"></div>
+    </div>
+
+    <!-- ===== Action Items ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">🎯</span>
+        <h2>액션아이템</h2>
+      </div>
+      <div class="action-list" id="actions"></div>
+    </div>
+
+    <!-- ===== Business Impact ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">💼</span>
+        <h2>비즈니스 영향</h2>
+      </div>
+      <div class="biz-grid" id="biz-grid"></div>
+    </div>
+
+    <!-- ===== Source Articles ===== -->
+    <div class="section">
+      <div class="section-header">
+        <span class="icon">📰</span>
+        <h2>원문 기사</h2>
+      </div>
+      <div class="article-grid" id="articles"></div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      Generated by <a href="#">Hermes Daily Curation</a> · 2026-04-25 20:57 KST
+    </footer>
+
+  </div>
+
+  <script>
+window.ARTICLES=[{source:"AI타임스",title:"AI와의 대화, 법정에선 어디까지 '증거'로 인정될까",description:"\"수면제랑 술이랑 같이 먹으면 사람이 죽을 수도 있나.\"얼마 전 국내에서는 모텔 약물 살인 사건에서 '챗GPT'와 나눈 대화 기록이 범행의 고의성을 입증하는 주요 단서로 주목받은 바 있다.또 미국 법원이 최근 AI와의 대화 기록을 법정 증거로 인정하면서, 법조계와 산업계에 비상이 걸린 것으로 알려졌다. 하지만 법무법인 원 임창국 변호사는 \"아직은 판례가 엇갈리는 상황\"이라며, 주의가 필요하다고 지적했다. AI 대화 기록은 국내 법정에서 과연 어디까지 효력을 발휘할 수 있을지 주요 쟁점을 정리했다.■ AI 대화기록 법적 증거로 채택될",link:"https://www.aitimes.com/news/articleView.html?idxno=209505"},{source:"AI타임스",title:"캐나다 코히어, 독일 AI 스타트업 알레프 알파 인수...\"유럽 소버린 AI 지원\"",description:"캐나다 AI 스타트업 코히어가 독일 AI 스타트업 알레프 알파(Aleph Alpha)를 인수하며 유럽 시장 공략과 ‘소버린 AI’ 구축에 나섰다. 코히어는 24일(현지시간) 인수 계약을 체결했다고 발표하며, 통합 법인은 코히어라는 이름을 유지하고 캐나다와 독일을 거점으로 운영될 예정이라고 밝혔다.구체적인 거래 금액은 공개하지 않았다. 업계에서는 합병 후 기업 가치가 200억달러(약 30조원) 수준으로 평가했다.이번 거래에는 독일 유통 대기업 슈바르츠 그룹의 참여도 눈에 띈다. 알레프 알파의 주요 투자자인 슈바르츠 그룹은 코히어의 신",link:"https://www.aitimes.com/news/articleView.html?idxno=209738"},{source:"AI타임스",title:"메타, 'AI 에이전트' 구현 위해 아마존 CPU 대규모 도입",description:"메타가 AI 인프라 확장을 위해 아마존웹서비스(AWS)와 수십억달러 규모의 CPU 사용 계약을 체결했다. 이는 GPU 중심이던 AI 생태계에서 CPU의 역할이 부각되는 흐름을 보여주는 상징적 사례로 평가됐다.메타는 24일(현지시간) 에이전트형 AI 구현을 위해 최소 3년 동안 AWS의 자체 설계 칩인 ‘그래비톤(Graviton)’ CPU를 컴퓨팅 포트폴리오에 통합할 예정이라고 발표했다.이번 계약을 통해 메타는 수천만개 코어 규모의 연산 자원을 확보하게 되며, 이는 AI 에이전트와 다양한 AI 서비스 운영에 활용될 예정이다. 구체적인",link:"https://www.aitimes.com/news/articleView.html?idxno=209737"},{source:"AI타임스",title:"중국, 기술 유출 차단 위해 AI 기업의 미국 투자 유치 제한",description:"중국 정부가 자국 AI 기업들에 대한 미국 자본 유입을 강력히 통제하는 방안을 추진하고 있다. 민감 기술의 해외 유출을 막고 국가 안보를 강화하려는 조치로, 글로벌 AI 투자 지형에도 적지 않은 영향을 미칠 전망이다.블룸버그에 따르면, 중국 국가발전개혁위원회(NDRC) 등 주요 규제 당국은 24일(현지시간) 일부 핵심 기술 기업에 정부 승인 없이 미국 자본을 유치하지 말라는 지침을 전달했다.대상에는 문샷 AI와 스텝펀 등이 포함된 것으로 알려졌다. 바이트댄스도 미국 투자자와 지분 거래 시 사전 승인을 받도록 하는 규제 대상에 포함됐",link:"https://www.aitimes.com/news/articleView.html?idxno=209739"},{source:"AI타임스",title:"플리토 “한국인 AI 통·번역 75%는 영·일어...비즈니스 넘어 일상 활용도 증가”",description:"국내 사용자들의 AI 번역·통역 사용이 영어와 일본어에 집중된 것으로 알려졌다. 또 비즈니스는 물론, 여행과 일상에서 AI 번역을 사용하는 빈도가 부쩍 늘어난 것으로 확인됐다. AI 전문 플리토(대표 이정수)는 B2C 통역 및 번역 앱 ‘챗 트랜스레이션(Chat Translation)’ 출시 이후 사용자 이용 통계를 25일 발표했다.플리토는 지난해 베타 버전을 출시한 데 이어, 12월에 정식 버전을 출시했다. 이후 수개월간 축적된 사용자 누적 통계를 이번에 공개한 것이다.플리토 관계자는 “국내 사용자의 상위 5개 언어가 전체의 약",link:"https://www.aitimes.com/news/articleView.html?idxno=209743"},{source:"AI타임스",title:"오픈AI, 캐나다 총격 사건 관련 공식 사과...\"용의자 정보 공유 미흡했어\"",description:"샘 알트먼 오픈AI CEO가 캐나다 소도시 텀블러 리지에서 발생한 총격 사건과 관련해 회사의 대응이 늦었던 점을 공식 사과했다. 알트먼 CEO는 24일(현지시간) 지역 신문인 텀블러 리지라인즈를 통해 사과문을 게재했다. 그는 “이와 같은 비극을 겪어서는 안 된다”라며 지역사회에 애도를 표하고, 사건 이전에 의심 사용자 정보를 경찰에 더 빨리 공유하지 못한 점에 대해 유감을 밝혔다.문제가 된 사건은 용의자인 제시 반 루트셀라르가 지난 2월 총격 사건으로 8명을 숨지게 한 것으로, 그는 사건 이전부터 '챗GPT'를 사용해 폭력적인 시나",link:"https://www.aitimes.com/news/articleView.html?idxno=209740"},{source:"AI타임스",title:"xAI, 에이전트 환경 특화 음성 모델  공개...\"사전 추론으로 오류 줄여\"",description:"xAI와 중국 샤오미가 각각 에이전트 환경에 특화된 차세대 음성 AI 모델을 공개했다. xAI는 23일(현지시간) 새로운 음성 모델 ‘그록 보이스 싱크 패스트 1.0(Grok Voice Think Fast 1.0)’을 공개하며 API 형태로 제공을 시작했다.이 모델은 고객 지원, 전화 영업, 예약 관리 등 복잡하고 다단계 업무를 음성 기반으로 처리하는 데 최적화된 것이 특징이다.실시간 추론 능력을 유지하면서도 응답 지연을 최소화해 자연스러운 대화 경험을 구현하는 데 초점을 맞췄다. 저지연 통신 환경을 위해 스타링크(Starlink)",link:"https://www.aitimes.com/news/articleView.html?idxno=209741"},{source:"AI타임스",title:"목포, ‘찾아가는 재택의료’ 본격 가동… 의료 사각지대 해소",description:"목포시가 거동이 불편한 장기요양 수급자를 대상으로 집에서 의료서비스를 받을 수 있는 재택의료체계를 본격 운영하고 있다고 24일 밝혔다.목포는 의료기관 방문이 어려운 노인을 위해 장기요양 재택의료센터 시범사업을 가동하고 있다. 이 사업은 병원 중심 진료에서 벗어나 의료진이 직접 가정을 찾아가는 방식으로 의료 공백을 줄이는 데 초점을 뒀다.목포는 목포시의료원과 박관우한의원과 업무협약을 체결해 양방과 한방을 아우르는 협력체계를 구축했다.전문 인력 교육을 마친 뒤 지난 3월27일부터 장기요양 재택의료센터 운영을 시작했다. 서비스는 의사,",link:"https://www.aitimes.com/news/articleView.html?idxno=209712"},{source:"AI타임스",title:"구글, 앤트로픽에 최대 59조 추가 투자 예정...5GW 컴퓨팅 자원 제공",description:"구글이 앤트로픽에 최대 400억달러(약 59조원)를 투자하기로 하며, 협력과 경쟁이 동시에 얽힌 양사의 관계가 한층 강화되고 있다.구글은 25일(현지시간) 앤트로픽에 우선 100억달러(약 15조원)를 현금으로 투자하고, 앞으로 성능 목표 달성 여부에 따라 추가로 300억달러(약 44조원)를 집행하는 조건부 계약을 체결했다고 밝혔다.기업 가치는 약 3500억~3800억달러(약 516조~561조원) 수준으로 알려졌다. 또 이번 자금은 앤트로픽의 핵심 과제인 ‘컴퓨팅 인프라 확장’에 집중 투입될 전망이다.AI 경쟁이 심화하면서 모델 성능",link:"https://www.aitimes.com/news/articleView.html?idxno=209736"},{source:"AI타임스",title:"[내면 지도 그리기] 13 Inner Mapping: 나를 찾는 지도",description:"내면지도_지름길을 알아보는 방법지름길은 대개 가장 짧은 거리로 정의됩니다.그러나 삶에서 그 개념은 조금 다른 방식으로 드러납니다.어떤 길은 빨라도 오래 가지 못하고, 어떤 길은 느려도 결국 목적지에 닿습니다.지름길이란 더 빨리 가는 길이 아니라, 결국 내가 끝까지 갈 수 있는 길,나에게 맞는 길을 알아보는 이름일지도 모릅니다.지름길은 변합니다. 어제까지 가장 빠르던 길이, 오늘은 멀리 돌아가는 길이 되기도 합니다. 골목 끝에 새로 생긴 카페로 갑자기 사람들이 몰리고, 갑자스러운 공사로 길이 막히고, 비 오는 날이면 평소엔 아무렇지",link:"https://www.aitimes.com/news/articleView.html?idxno=209742"},{source:"GeekNews",title:"ClawSweeper: AI 기반 오픈소스 이슈 자동 관리 봇",description:"openclaw/openclaw 저장소는 열린 이슈와 PR을 합쳐 13,000개 이상의 미처리 항목을 안고 있습니다. ClawSweeper는 이 항목들을 AI가 자동으로 검토해 닫을 수 있는 것과 열어둘 것을 분류하는 봇으로, &quot;확실하지 않으면 닫지 않는다&quot;는 보수적 원칙 위에 설계되었습니다.
+핵심 동작 방식...",link:"https://news.hada.io/topic?id=28880"},{source:"GeekNews",title:"AI 알약을 먹은 복리 성장 스타트업",description:"샌프란시스코의 AI 네이티브 기업들을 직접 방문해 실제 업무 방식을 관찰한 결과, 제품 관리자(PM) 역할의 소멸부터 조직 전반의 실험 속도 가속까지 기존 스타트업과는 근본적으로 다른 운영 모델이 등장하고 있음
+방문한 5개 기업 중 전담 PM은 단 1명뿐이었으며, 엔지니어가",link:"https://news.hada.io/topic?id=28879"},{source:"GeekNews",title:"Show GN: purplemux – Claude Code 세션을 웹·모바일에서 관리하는 오픈소스 tmux 매니저",description:"Claude Code 여러 개 띄워놓고 돌리다 보니까
+
+승인 대기 놓치고
+작업 끝난 거 모르고
+터미널 하나하나 들어가는 게 너무 귀찮고
+이동 중에도 작업 흐름이 끊기는 게 아쉬워서
+
+그냥 한 화면에서 보려고 만들었습니다.
+브라우저/모바일에서 세션 상태를",link:"https://news.hada.io/topic?id=28877"},{source:"GeekNews",title:"반사회적으로 되는 법 - 일관성 없고 고립적인 사회적 경험에 대한 안내",description:"모호하거나 불쾌한 상호작용에서 상대를 비이성적이고 적대적이거나 무지하거나 비도덕적인 존재로 고정하면, 사회적 관계는 빠르게 고립적으로 바뀜
+자신의 해석이 틀릴 가능성을 검토하지 않고 직감과 감정만 신뢰할수록, 대화는 사실 확인보다...",link:"https://news.hada.io/topic?id=28876"},{source:"GeekNews",title:"Show GN: imgssh - SSH 안에서 로컬 클립보드 이미지를 붙여넣기",description:"안녕하세요.
+요즘 원격 서버에 SSH로 붙어서 Claude Code나 Codex 같은 터미널 도구를 쓰는 일이 많아졌는데, 이미지 넣는 과정이 생각보다 번거롭더라고요.
+로컬에는 이미 스크린샷이 클립보드에 있는데, 원격 서버 입장에서는 그걸 알 방법이 없어서 매번 파일로 저장하고 scp로 올리고 경로를 다시",link:"https://news.hada.io/topic?id=28875"},{source:"GeekNews",title:"TypeScript 7.0 Beta 공개",description:"TypeScript 7.0 Beta 공개 - Go 네이티브 포팅으로 약 10배 빨라진 TS
+
+기존 TypeScript 컴파일러를 Go로 포팅한 새 네이티브 구현
+“beta”지만 일상 작업과 CI에서 바로 써볼 수 있을 정도로 안정적이라고 강조
+새 코드베이스는 재작성(rewrite)이 아니라 기존 구현을 체계적으로 ...",link:"https://news.hada.io/topic?id=28873"},{source:"GeekNews",title:"Google Cloud가 제시하는 멀티 에이전트 시스템의 5가지 통합 패턴: A2A와 MCP",description:"Google Cloud는 Cloud Next 26에서 멀티 에이전트 시스템을 엔터프라이즈 규모로 구축하기 위한 인프라를 공개했습니다. 핵심은 두 가지 프로토콜입니다. 에이전트 간 통신을 담당하는 A2A(Agent-to-Agent)와 에이전트가 외부 도구·데이터에 접근할 때 사용하는 MCP(Model Context Protocol)입니다. 이 글은 두 프로토...",link:"https://news.hada.io/topic?id=28872"},{source:"GeekNews",title:"Spinel: Ruby AOT 네이티브 컴파일러",description:"Ruby 코드를 독립 실행형 네이티브 바이너리로 바꾸고, 전체 프로그램 단위 타입 추론과 C 코드 생성을 통해 최신 CRuby miniruby 대비 기하평균 약 11.6배 빠른 실행을 노림
+컴파일 파이프라인은 Prism 기반 파서로 Ruby를 AST 텍스트",link:"https://news.hada.io/topic?id=28871"},{source:"GeekNews",title:"Ubuntu 26.04",description:"데스크톱, 서버, 클라우드 전반에서 보안과 성능 향상에 초점을 맞춘 Ubuntu 26.04 LTS Resolute Raccoon이 출시됨
+유지보수 기간은 Ubuntu Desktop, Ubuntu Server, Ubuntu Cloud, Ubuntu WSL, Ubuntu Core에 5년 제공되고, 나...",link:"https://news.hada.io/topic?id=28870"},{source:"TechCrunch",title:"소식통에 따르면 Lachy Groom은 인도 스타트업 Pronto를 $ 200M 가치로 후원하기 위해",description:"This round, should it occur, would double the house-help startup's valuation in a matter of weeks.",link:"https://techcrunch.com/2026/04/24/lachy-groom-to-back-pronto-as-indias-house-help-startup-scales-fast-sources-say/"},{source:"GeekNews",title:"클로드 코드로 UX 라이팅 리소스 50% 절감한 후기 (Figma MCP 활용)",description:"서비스 전체 문구 검수(보통 UX Writing이라고 정의된 업무)라는 막막한 과제를 AI로 자동화하고 해결한 기록을 공유합니다.
+단순한 'AI 활용'을 넘어, 조직의 판단 기준을 시스템화하고 실무에 밀착시킨 과정이 잘 담겨 있네요.
+핵심 요약
+모호한 글쓰기 가이드 대신 '수치화된 스펙트럼'",link:"https://news.hada.io/topic?id=28869"},{source:"GeekNews",title:"Codex, Browser use로 웹사이트 구현 및 검증 지원",description:"Browser Use 플러그인으로 코덱스앱 내부에서 브라우저를 실행해 사용자가 실제로 클릭하듯 앱을 테스트 가능해짐
+코덱스가 프론트엔드 코드를 빌드한후, vision을 써서 사용자가 보는 화면을 그대로 보고 웹앱과 상호작용 및 네트워크/콘솔 로그를 함께 체크하며 확인
+로컬 개...",link:"https://news.hada.io/topic?id=28868"},{source:"GeekNews",title:"Google, Anthropic에 최대 400억 달러 (약 59조원) 투자",description:"Google이 Anthropic에 즉시 100억 달러를 현금 투자하고, 성과 목표 달성 시 추가 300억 달러를 투입하는 대규모 투자를 발표, 기업가치는 3,500억 달러로 책정
+Anthropic은 소프트웨어 코딩 속도를 높이는 AI 에이전트 Claude Code의 폭발적 성공...",link:"https://news.hada.io/topic?id=28867"},{source:"GeekNews",title:"Show GN: 온라인으로 즐기는 랜덤뽑기 모음 사이트",description:"안녕하세요!
+온라인 게임처럼 방을 만들고 친구들을 초대하여 랜덤뽑기 또는 순위를 정할수 있는 게임을들 모아둔 사이트입니다.
+방을 만들고 초대 버튼을 누르면 초대링크 또는 QR 코드로 친구를 방에 초대할 수 있어요
+5가지 랜덤 게이중 1개를 골라서 실시간으로 결과를 확인할 수 있습니다.",link:"https://news.hada.io/topic?id=28866"},{source:"GeekNews",title:"과도한 고민, 범위 확장, 구조적 diff로 프로젝트를 망치는 법",description:"프로젝트는 바로 만들어 끝내는 흐름과 조사와 설계가 커지며 원래 문제를 놓치는 흐름으로 갈리기 쉬우며, 실제 진전에는 그냥 해보는 쪽이 더 앞설 때가 많음
+Emacs용 fuzzy path 검색을 만들면서도 좋은 라이브러리의 부가 기능이 새 요구를 낳...",link:"https://news.hada.io/topic?id=28865"},{source:"GeekNews",title:"노르웨이, 16세 미만 소셜미디어 금지 추진",description:"16세 미만 아동의 social media 접근 제한 법안이 Norway에서 추진되고 있으며, 아이들이 온라인에서 겪을 수 있는 잠재적 해악 우려에 대응하는 조치로 보임
+정부는 이 법안 추진과 관련해 대중의 요구가 압도적이었다고 밝혔고, 연말 전...",link:"https://news.hada.io/topic?id=28864"},{source:"TechCrunch",title:"스티브 발머 (Steve Ballmer) 는 사기에 대한 유죄를 주장한 창업자를 폭파합니다: ‘나는 속았고 어리석은 느낌’",description:"Steve Ballmer wrote a fiery letter in the sentencing of disgraced founder Joseph Sanberg documenting all the harm that's befalling him as an investor.",link:"https://techcrunch.com/2026/04/24/steve-ballmer-blasts-founder-he-backed-who-pleaded-guilty-to-fraud-i-was-duped-and-feel-silly/"},{source:"TechCrunch",title:"팔란티르는 미 국세청 (IRS) 의 금융 범죄 조사에 도움을 주고 있는 것으로 알려졌다.",description:"The IRS has used Palantir's software since at least 2018, The Intercept reports.",link:"https://techcrunch.com/2026/04/24/palantir-is-reportedly-helping-the-irs-investigate-financial-crimes/"},{source:"TechCrunch",title:"Cohere는 독일에 기반을 둔 스타트업과 합병하여 ‘대서양 횡단 AI 강국‘ 을 창출합니다.",description:"Cohere, the Canada-based AI company that makes AI tools for businesses in regulated industries, announced Friday it would merge with Aleph Alpha, a German company that also builds AI systems for businesses and governments.",link:"https://techcrunch.com/2026/04/24/cohere-acquires-merges-with-german-based-startup-to-create-a-transatlantic-ai-powerhouse/"},{source:"TechCrunch",title:"두 명의 대학생이 iMessage에서 AI 소셜 네트워크를 구축하기 위해 510만 달러 ($) 의 사전 종자를 모금합니다.",description:"Series, a social networking app that's grown popular on college campuses, announced a $5.1 million pre-seed round from some big names in tech.",link:"https://techcrunch.com/2026/04/24/two-college-kids-raise-a-5-1-million-pre-seed-to-build-an-ai-social-network-in-imessage/"},{source:"TechCrunch",title:"메타의 손실은 사고 기계의 이득입니다",description:"Meta has been poaching talent from Thinking Machines Lab. But it's a two-way street.",link:"https://techcrunch.com/2026/04/24/metas-loss-is-thinking-machines-gain/"}];
+window.INSIGHTS={"summary": "오늘 하루 31건의 기술 기사를 수집했다. AI 에이전트Toolchain 확장(Claude Code, Browser Use, purplemux), 메타-AWS 대규모 CPU 계약, 구글-앤트로픽 59조원 투자,中国的 AI 투자 규제, 멀티 에이전트 시스템 표준화(A2A/MCP), TypeScript 7.0 Go 포팅 등 다양한 기술 흐름이 확인된다. AI 코딩 에이전트 생태계가 빠르게 성숙하고 있으며, 유럽 소버린 AI 전략과 미국-중국 기술 패권 경쟁이 심화되는 양상.", "trends": [{"title": "AI 코딩 에이전트Toolchain 확장 가속", "description": "Claude Code + Browser Use 연동, purplemux(웹/모바일 세션 관리), imgssh(클립보드 이미지 공유), ClawSweeper(자동 이슈 관리) 등 코딩 에이전트 주변 도구가 빠르게 확산되고 있다. Google Agents CLI까지 등장하며 에이전트生态계 경쟁이 본격화.", "sources": ["Show GN: purplemux – Claude Code 세션을 웹·모바일에서 관리하는 오픈소스 tmux 매니저", "Codex, Browser use로 웹사이트 구현 및 검증 지원", "ClawSweeper: AI 기반 오픈소스 이슈 자동 관리 봇", "Show GN: imgssh - SSH 안에서 로컬 클립보드 이미지를 붙여넣기"], "impact": "high"}, {"title": "메타-AWS 수십억달러 CPU 계약: GPU에서 CPU로의 전환 신호", "description": "메타가 AWS 그래비톤 CPU 수천만 코어 규모 도입. GPU 중심이던 AI 인프라 전략에서 CPU의 역할이 재조명되는 전환점. AI 에이전트 처리에서 비용 효율성 강조.", "sources": ["메타, 'AI 에이전트' 구현 위해 아마존 CPU 대규모 도입"], "impact": "high"}, {"title": "구글-앤트로픽 59조원 협력: 투자와 경쟁의 이중성", "description": "Google이 Anthropic에 최대 400억 달러(약 59조원) 투자. 동시에 경쟁 관계인 구글의搜索引擎에 앤트로픽 Clauda이 탑재되는 등 협력-경쟁 구조가深化. AI 스타트업의 대형 클라우드 종속 속에서의 독립성 유지課題が浮上.", "sources": ["구글, 앤트로픽에 최대 59조 추가 투자 예정...5GW 컴퓨팅 자원 제공", "Google, Anthropic에 최대 400억 달러 (약 59조원) 투자"], "impact": "high"}, {"title": "Europe 소버린 AI 전략: 합병으로 대서양 횡단 강국 건설", "description": "캐나다 코히어-독일 알레프 알파 합병. 유럽 주권 AI 구축 전략이 구체화되고 있다. 슈바르츠 그룹 참여로 유통-제조-기술 복합체 형성. 대서양 횡단 AI 강국이라는 목표.", "sources": ["캐나다 코히어, 독일 AI 스타트업 알레프 알파 인수...\"유럽 소버린 AI 지원\"", "Cohere는 독일에 기반을 둔 스타트업과 합병하여 ‘대서양 횡단 AI 강국‘ 을 창출합니다."], "impact": "high"}, {"title": "A2A/MCP: 멀티 에이전트 상호운용성 표준 전쟁", "description": "Google Cloud가 A2A(Agent-to-Agent) 및 MCP(Model Context Protocol) 5가지 통합 패턴 제시. Claude Code Figma MCP 활용 후기, Gemini Deep Research Agent API 공개 등 에이전트 간 통신 표준을 둘러싼 경쟁이加速.", "sources": ["Google Cloud가 제시하는 멀티 에이전트 시스템의 5가지 통합 패턴: A2A와 MCP", "클로드 코드로 UX 라이팅 리소스 50% 절감한 후기 (Figma MCP 활용)"], "impact": "high"}, {"title": "TypeScript 7.0 Go 포팅: 개발도구 성능 고속화趋势", "description": "TypeScript 7.0 Beta가 Go로 포팅되어 약 10배 빠른 컴파일. Ruby AOT 네이티브 컴파일러 Spinel, GoScrapy 등 고성능 네이티브 도구 확산. AI 보조 코딩이高性能开发工具への期待치을 끌어올리는 결과.", "sources": ["TypeScript 7.0 Beta 공개", "Spinel: Ruby AOT 네이티브 컴파일러"], "impact": "medium"}, {"title": "中国의 미국 기술 투자 규제 강화", "description": "中国NDRC, 민감 기술 기업에 미국 자본 유치 전면 규제. 바이트댄스, 문샷 AI, 스텝펀 등 규제 대상. 글로벌 AI 투자 지형에큰 변화 예상.", "sources": ["중국, 기술 유출 차단 위해 AI 기업의 미국 투자 유치 제한"], "impact": "medium"}, {"title": "AI 법률/윤리 쟁점: 증거 인정, 총격 사건 대응, 소셜미디어 규제", "description": "AI 대화 기록 법정 증거 인정 쟁점, 오픈AI 캐나다 총격 사건 공식 사과, 노르웨이 16세 미만 소셜미디어 금지 추진 등 AI의 사회적 영향과 규제 논의 본격화.", "sources": ["AI와의 대화, 법정에선 어디까지 '증거'로 인정될까", "오픈AI, 캐나다 총격 사건 관련 공식 사과", "노르웨이, 16세 미만 소셜미디어 금지 추진"], "impact": "medium"}], "insights": [{"title": "코딩 에이전트는 도구에서 플랫폼으로: 분업에서 통합으로", "content": "Browser Use, Claude Code, purplemux, ClawSweeper, imgssh 등 코딩 에이전트 주변 생태계가 급속히 확장되고 있다. 각 도구가 개별적으로 존재하던 상태에서 Google Agents CLI 같은 메타 도구가 등장하며 '도구를 만드는 도구' 시대로 진입. 이는 코딩 에이전트를 사용하는开发자의 역량이 중요해지는 동시에, 에이전트 간 상호운용성 표준(A2A/MCP) 경쟁이 본격화되고 있음을 시사.", "trend_ref": "AI 코딩 에이전트Toolchain 확장 가속"}, {"title": "CPU의 귀환: 비용 효율성 중심의 AI 인프라 재편", "content": "메타-AWS 수십억 달러 CPU 계약은 GPU 집중에서 분산형 인프라로의 전환 신호다. AI 에이전트의 다단계 업무 처리에 GPU보다 비용 효율적인 CPU가 적합한 случа씨가 늘고 있다. 이는 GPU 매출에 의존하는 엔비디아에 대한 장기적 리스크이면서, CPU 기반 클라우드 인프라(AWS 그래비톤, 인텔 등)에 기회.", "trend_ref": "메타-AWS 수십억달러 CPU 계약: GPU에서 CPU로의 전환 신호"}, {"title": "소버린 AI: 유럽의 기술주권 전략이 현실화", "content": "코히어-알레프 알파 합병은 단순한 M&A가 아니라 유럽 주권 AI 구축 전략의 구체적 실현이다. 슈바르츠 그룹(유럽 최대 유통/제조 기업)의 참여는 기술+산업 복합체의 형태를띠. 미국-중국 기술 패권에서欧洲이 독자 노선을 구축하려는 의지表示.", "trend_ref": "Europe 소버린 AI 전략: 합병으로 대서양 횡단 강국 건설"}, {"title": "투자-경쟁 이중성: 앤트로픽과 구글의 복잡한 관계", "content": "구글-앤트로픽 59조원 협력은 단순한 투자가 아니다. 구글 서치에 클로드 탑재, 동시에 경쟁적 AI 모델 개발 지원. 이것은 윈도우-인텔模式和告いと同じ構造로, 생태계 통 制를 통한 장기적 우위 확보 전략으로 보임. AI 스타트업 입장에서의 교훈: 거대 클라우드의 투자를 받으면서도 독립성을 유지하는 것이 핵심 과제.", "trend_ref": "구글-앤트로픽 59조원 협력: 투자와 경쟁의 이중성"}], "action_items": [{"title": "Claude Code + Browser Use 실전 적용", "description": "현재 프로젝트에서 Claude Code Browser Use 플러그인을 사용한 자동 E2E 테스트 시나리오 구축. 30분 내 구현 가능하며 코딩 워크플로우 변화 체감.", "priority": "high", "trend_ref": "AI 코딩 에이전트Toolchain 확장 가속", "effort": "30min"}, {"title": "Google A2A/MCP 프로토콜 분석 및 적용 검토", "description": "Google Cloud A2A 및 MCP 스펙을 읽고, 현재 구축 중인 에이전트 시스템에 적용 가능성 평가. 멀티 에이전트 통신 표준 대응 전략 정리.", "priority": "high", "trend_ref": "A2A/MCP: 멀티 에이전트 상호운용성 표준 전쟁", "effort": "1hour"}, {"title": "메타-AWS CPU 계약이 인프라 비용에 미치는 영향 분석", "description": "AI 에이전트 실행 비용 구조에서 CPU/GPU 비율 변화 추적. 향후 AI 서비스 운영 시 비용 최적화 방향 재검토.", "priority": "medium", "trend_ref": "메타-AWS 수십억달러 CPU 계약: GPU에서 CPU로의 전환 신호", "effort": "30min"}, {"title": "유럽 소버린 AI 동향 모니터링 체계 구축", "description": "코히어-알레프 알파 합병 이후 유럽 AI 스타트업 투자 기회 모니터링. European AI 규제 및 데이터 주권 정책 추적.", "priority": "medium", "trend_ref": "Europe 소버린 AI 전략: 합병으로 대서양 횡단 강국 건설", "effort": "1hour"}, {"title": "AI 대화 기록 법적 증거력 쟁점 심화 대응", "description": "AI 대화 기록의 법정 증거 인정 범위 확대에 대비한 내부 가이드라인 수립. 업무용 AI 사용 시 대화 내보내기/보관 정책 검토.", "priority": "low", "trend_ref": "AI 법률/윤리 쟁점: 증거 인정, 총격 사건 대응, 소셜미디어 규제", "effort": "1hour"}, {"title": "TypeScript 7.0 Beta 도입 검토 및 성능 측정", "description": "진행 중인 프로젝트에 TypeScript 7.0 Beta 적용. Go 포팅으로 인한 빌드 속도 개선 효과 측정. Go 포팅 안정성 및 생태계 전환 시 비용 산정.", "priority": "medium", "trend_ref": "TypeScript 7.0 Go 포팅: 개발도구 성능 고속화趋势", "effort": "1hour"}], "business_impact": {"opportunities": ["멀티 에이전트 표준(A2A/MCP) 기반 서비스商机 — 에이전트 연동 플랫폼 스타트업 관심 급증", "유럽 소버린 AI 투자 기회 — 코히어-알레프 합병 후 유럽 AI 생태계 참여 확대 가능", "AI 코딩 도구 생태계 — Browser Use, Claude Code 플러그인 등 도구 제작/번들링 비즈니스", "CPU 기반 AI 인프라도움 — AWS 그래비톤 기반 서비스 사업 모델 검토 기회"], "threats": ["구글-앤트로픽 등 대형 클라우드-AI 스타트업 협력 구조固化 — 플랫폼 종속 리스크", "中美 기술 분단 가속化 — 바이트댄스 등 중국 AI 기업 규제 확대, 글로벌 투자 구조 변화", "에이전트Toolchain 표준 전쟁 — Apple, Google, Meta 등 플랫폼 독점 가능성"], "recommendations": ["AI 코딩 에이전트Toolchain 역량 집중 — Claude Code, Browser Use, MCP 등 핵심 도구 숙련", "단일 대형 클라우드 집중 투자 방지 — Multi-cloud + 오픈소스 기반 인프라 전략", "유럽 AI 스타트업 투자/제휴 기회에 대한 지속적 모니터링 체계", "AI 대화 기록 보관/관리 정책 수립 — 향후 법적 증거 인정 범위 확대 대비"]}};
+
+function escHtml(s){
+  if(!s)return'';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function render(data){
+  var d=new Date();
+  document.getElementById('page-date').textContent=d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  document.querySelector('.footer').innerHTML='Generated by <strong>Hermes Daily Curation</strong> · '+(data.generated_at?new Date(data.generated_at).toLocaleString('ko-KR'):d.toLocaleString('ko-KR'));
+  document.getElementById('summary').textContent=data.summary||'';
+
+  var trendsEl=document.getElementById('trends');
+  (data.trends||[]).forEach(function(t){
+    var impact=t.impact||'medium';
+    trendsEl.innerHTML+='<div class="trend-card '+impact+'"><div class="trend-title">'+escHtml(t.title)+'</div><div class="trend-desc">'+escHtml(t.description)+'</div><div class="trend-meta"><span class="impact-badge impact-'+impact+'">'+impact+'</span>'+(t.sources||[]).map(function(s){return'<span class="trend-source">• '+escHtml(s)+'</span>'}).join('')+'</div></div>';
+  });
+
+  var insightsEl=document.getElementById('insights');
+  (data.insights||[]).forEach(function(i){
+    insightsEl.innerHTML+='<div class="insight-card"><div class="insight-title">💡 '+escHtml(i.title)+'</div><div class="insight-content">'+escHtml(i.content)+'</div>'+(i.trend_ref?'<span class="trend-ref"># '+escHtml(i.trend_ref)+'</span>':'')+'</div>';
+  });
+
+  var actionsEl=document.getElementById('actions');
+  (data.action_items||[]).forEach(function(a){
+    var p=a.priority||'medium';
+    actionsEl.innerHTML+='<div class="action-item '+p+'"><div class="priority-dot"></div><div class="action-body"><div class="action-title">'+escHtml(a.title)+'</div><div class="action-desc">'+escHtml(a.description)+'</div><div class="action-meta"><span class="priority-label '+p+'">'+p+'</span><span class="effort-badge">⏱ '+escHtml(a.effort||'?')+'</span>'+(a.trend_ref?'<span class="trend-ref"># '+escHtml(a.trend_ref)+'</span>':'')+'</div></div></div>';
+  });
+
+  var bi=data.business_impact||{};
+  var bizEl=document.getElementById('biz-grid');
+  if(bi.opportunities) bizEl.innerHTML+='<div class="biz-card opportunities"><h3>🟢 기회</h3><ul class="biz-list">'+bi.opportunities.map(function(o){return'<li>'+escHtml(o)+'</li>'}).join('')+'</ul></div>';
+  if(bi.threats) bizEl.innerHTML+='<div class="biz-card threats"><h3>🔴 위협</h3><ul class="biz-list">'+bi.threats.map(function(o){return'<li>'+escHtml(o)+'</li>'}).join('')+'</ul></div>';
+  if(bi.recommendations) bizEl.innerHTML+='<div class="biz-card recommendations" style="grid-column:1/-1"><h3>🟠 권고사항</h3><ul class="biz-list">'+bi.recommendations.map(function(o){return'<li>'+escHtml(o)+'</li>'}).join('')+'</ul></div>';
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  render(window.INSIGHTS);
+});
+</script>
+</body>
+</html>

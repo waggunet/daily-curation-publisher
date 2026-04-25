@@ -11,7 +11,6 @@ SKILL_DIR = Path(__file__).parent.parent
 TEMPLATE   = SKILL_DIR / "assets" / "template.html"
 ARTICLES   = SKILL_DIR / "data" / "raw_articles.json"
 INSIGHTS   = SKILL_DIR / "data" / "insights_report.json"
-OUTPUT     = SKILL_DIR / "public" / "index.html"
 
 def js_str(s):
     """Python str → safe JS string literal"""
@@ -20,6 +19,10 @@ def js_str(s):
 def main():
     articles = json.load(open(ARTICLES))["articles"]
     insights = json.load(open(INSIGHTS))
+
+    now_kst = datetime.now(KST)
+    date_str = now_kst.strftime("%Y%m%d")
+    OUTPUT = SKILL_DIR / "public" / f"{date_str}.html"
 
     html = TEMPLATE.read_text(encoding="utf-8")
 
