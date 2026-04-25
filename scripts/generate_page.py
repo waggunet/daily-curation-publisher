@@ -82,6 +82,10 @@ def main():
                         f'<div class="biz-grid" id="biz-grid">{biz_html}</div>')
     html = html.replace('<div class="article-grid" id="articles"></div>',
                         f'<div class="article-grid" id="articles">{articles_html}</div>')
+    html = html.replace('<div class="date" id="page-date"></div>',
+                        f'<div class="date" id="page-date">{now.strftime("%Y년 %m월 %d일")}</div>')
+    html = html.replace('<title>Daily Curation — {{date}}</title>',
+                        f'<title>Daily News Curation — {now.strftime("%Y년 %m월 %d일")}</title>')
     html = html.replace("{{date}}", now.strftime("%Y-%m-%d"))
     html = html.replace("{{generated_at}}", now.strftime("%Y-%m-%d %H:%M KST"))
 
